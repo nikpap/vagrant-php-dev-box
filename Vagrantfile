@@ -10,10 +10,8 @@ Vagrant.configure(2) do |config|
   # See https://github.com/mitchellh/vagrant/issues/5005
   config.ssh.insert_key = false
 
-  config.vm.provision "ansible" do |ansible|
-    ansible.verbose = "vv"
-    ansible.playbook = "playbooks/vagrant.yml"
-  end
+  config.vm.provision :shell, :inline =>
+    "provision.sh"
 
   config.vm.network "forwarded_port", guest: 80, host: 8080
   config.vm.network "private_network", ip: "192.168.50.4"
